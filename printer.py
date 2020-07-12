@@ -15,16 +15,16 @@ PHYSICALOFFSETX = 112
 PHYSICALOFFSETY = 113
 
 
-def do_print(file_name):
+def do_print(file_path):
     printer_name = win32print.GetDefaultPrinter()
     hDC = win32ui.CreateDC()
     hDC.CreatePrinterDC(printer_name)
     printable_area = hDC.GetDeviceCaps(HORZRES), hDC.GetDeviceCaps(VERTRES)
     printer_size = hDC.GetDeviceCaps(PHYSICALWIDTH), hDC.GetDeviceCaps(PHYSICALHEIGHT)
-    bmp = Image.open(file_name)
+    bmp = Image.open(file_path)
     ratios = [1.0 * printable_area[0] / bmp.size[0], 1.0 * printable_area[1] / bmp.size[1]]
     scale = min(ratios)
-    hDC.StartDoc(file_name)
+    hDC.StartDoc(file_path)
     hDC.StartPage()
 
     dib = ImageWin.Dib(bmp)
